@@ -26,7 +26,7 @@
     .page{min-height:100vh;padding:100px 10%;display:none;animation:fadeIn 0.5s ease;}
     .page.active{display:block;}
     @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-    .back-button{position:fixed;top:40px;left:40px;background:rgba(0,0,0,0.7);color:white;padding:15px 30px;text-decoration:none;border-radius:50px;font-size:0.9rem;letter-spacing:2px;transition:all 0.3s ease;z-index:1000;}
+    .back-button{position:fixed;top:40px;left:40px;background:rgba(0,0,0,0.7);color:white;padding:15px 30px;text-decoration:none;border-radius:50px;font-size:0.9rem;letter-spacing:2px;transition:all 0.3s ease;z-index:1000;cursor:pointer;}
     .back-button:hover{background:#d4af37;transform:scale(1.05);}
     .page h2{font-size:3rem;margin-bottom:40px;font-weight:300;letter-spacing:5px;}
     .page p{font-size:1.2rem;line-height:2;max-width:800px;}
@@ -103,7 +103,7 @@
         .museo-main-image{min-height:400px;}
     }
     @media(max-width:768px){
-        .side-menu{right:20px;padding:20px 15px;font-size:0.9rem;}
+        .side-menu{right:20px;padding:20px 15px;}
         .side-menu li{margin:15px 0;}
         .side-menu a{font-size:0.9rem;padding:8px;}
         .hero-text h1{font-size:2rem;letter-spacing:4px;}
@@ -136,16 +136,16 @@
 <!-- Side Menu -->
 <nav class="side-menu">
     <ul>
-        <li><a href="#" onclick="showPage('proyecto')">Proyecto</a></li>
-        <li><a href="#" onclick="showPage('statement')">Statement</a></li>
-        <li><a href="#" onclick="showPage('about')">About Me</a></li>
-        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+        <li><a href="#" onclick="showPage('proyecto'); return false;">Proyecto</a></li>
+        <li><a href="#" onclick="showPage('statement'); return false;">Statement</a></li>
+        <li><a href="#" onclick="showPage('about'); return false;">About Me</a></li>
+        <li><a href="#" onclick="showPage('contact'); return false;">Contact</a></li>
     </ul>
 </nav>
 
 <!-- Página Proyecto con Galería Dinámica -->
 <div id="proyecto" class="page">
-    <a href="#" class="back-button" onclick="showHome()">← Inicio</a>
+    <a href="#" class="back-button" onclick="showHome(); return false;">← Inicio</a>
     <h2>Proyecto</h2>
     
     <div class="dynamic-gallery">
@@ -165,7 +165,7 @@
 
 <!-- Otras páginas -->
 <div id="statement" class="page">
-    <a href="#" class="back-button" onclick="showHome()">← Inicio</a>
+    <a href="#" class="back-button" onclick="showHome(); return false;">← Inicio</a>
     <h2>Statement</h2>
     <p>
         Mi trabajo explora la intersección entre la memoria y el paisaje emocional. 
@@ -179,7 +179,7 @@
 </div>
 
 <div id="about" class="page">
-    <a href="#" class="back-button" onclick="showHome()">← Inicio</a>
+    <a href="#" class="back-button" onclick="showHome(); return false;">← Inicio</a>
     <h2>About Me</h2>
     <p>
         Nacido/a en [Ciudad], [Año]. Estudié Bellas Artes en [Universidad].<br><br>
@@ -193,7 +193,7 @@
 </div>
 
 <div id="contact" class="page">
-    <a href="#" class="back-button" onclick="showHome()">← Inicio</a>
+    <a href="#" class="back-button" onclick="showHome(); return false;">← Inicio</a>
     <h2>Contact</h2>
     <div class="contact-form">
         <form action="https://formspree.io/f/TU_ID_AQUI" method="POST">
@@ -401,11 +401,17 @@ const obras = [
 ];
 
 let currentIndex = 0;
+let galleryInitialized = false;
 
 // Inicializar galería
 function initGallery(){
+    if(galleryInitialized) return;
+    
     const carousel = document.getElementById('galleryCarousel');
     const indicators = document.getElementById('galleryIndicators');
+    
+    carousel.innerHTML = '';
+    indicators.innerHTML = '';
     
     obras.forEach((obra, i) => {
         // Crear card
@@ -427,6 +433,7 @@ function initGallery(){
         indicators.appendChild(indicator);
     });
     
+    galleryInitialized = true;
     updateGallery();
 }
 
