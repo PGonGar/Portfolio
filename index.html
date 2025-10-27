@@ -3,123 +3,462 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tu Nombre - Portfolio Artístico</title>
+<title>Pilar Quintas - Artista Visual</title>
 <style>
 /* ====== Reset y estilos generales ====== */
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Georgia', serif;color:#333;overflow-x:hidden;}
+body{font-family:'Cormorant Garamond', 'Georgia', serif;color:#2a2a2a;overflow-x:hidden;background:#fafafa;}
 
 /* Hero */
 .hero{width:100%;height:100vh;position:relative;overflow:hidden;}
-.hero-image{width:100%;height:100%;object-fit:cover;filter:brightness(0.7);}
-.hero-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:white;z-index:2;}
-.hero-text h1{font-size:4rem;font-weight:300;letter-spacing:8px;margin-bottom:20px;text-transform:uppercase;}
-.hero-text p{font-size:1.5rem;font-style:italic;letter-spacing:3px;}
+.hero-image{width:100%;height:100%;object-fit:cover;filter:brightness(0.65);}
+.hero-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#f5f5f5;z-index:2;}
+.hero-text h1{font-size:5rem;font-weight:300;letter-spacing:12px;margin-bottom:25px;text-transform:uppercase;text-shadow:2px 2px 20px rgba(0,0,0,0.5);}
+.hero-text p{font-size:1.8rem;font-style:italic;letter-spacing:4px;font-weight:300;}
 
 /* Side Menu */
-.side-menu{position:fixed;right:50px;top:50%;transform:translateY(-50%);z-index:1000;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:30px 20px;border-radius:10px;}
+.side-menu{position:fixed;right:50px;top:50%;transform:translateY(-50%);z-index:1000;background:rgba(255,255,255,0.08);backdrop-filter:blur(15px);padding:35px 25px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);display:block;}
+.side-menu.hide{display:none;}
 .side-menu ul{list-style:none;}
-.side-menu li{margin:25px 0;}
-.side-menu a{text-decoration:none;color:white;font-size:1.1rem;letter-spacing:2px;text-transform:uppercase;transition:all 0.3s ease;display:block;padding:10px;cursor:pointer;}
-.side-menu a:hover{color:#d4af37;transform:translateX(-10px);}
+.side-menu li{margin:28px 0;}
+.side-menu a{text-decoration:none;color:#f5f5f5;font-size:1.1rem;letter-spacing:2.5px;text-transform:uppercase;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);display:block;padding:12px;cursor:pointer;font-weight:300;}
+.side-menu a:hover{color:#c9a961;transform:translateX(-12px);text-shadow:0 0 10px rgba(201,169,97,0.5);}
 
 /* Pages */
-.page{min-height:100vh;padding:100px 10%;display:none;animation:fadeIn 0.5s ease;background:#fff;}
+.page{min-height:100vh;padding:120px 10%;display:none;animation:fadeIn 0.6s ease;background:#fafafa;}
 .page.active{display:block;}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-.back-button{position:fixed;top:40px;left:40px;background:rgba(0,0,0,0.7);color:white;padding:15px 30px;text-decoration:none;border-radius:50px;font-size:0.9rem;letter-spacing:2px;transition:all 0.3s ease;z-index:1000;cursor:pointer;border:none;}
-.back-button:hover{background:#d4af37;transform:scale(1.05);}
-.page h2{font-size:3rem;margin-bottom:40px;font-weight:300;letter-spacing:5px;}
-.page p{font-size:1.2rem;line-height:2;max-width:800px;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.back-button{position:fixed;top:40px;left:40px;background:rgba(42,42,42,0.85);color:#f5f5f5;padding:16px 32px;text-decoration:none;border-radius:50px;font-size:0.95rem;letter-spacing:2.5px;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);z-index:1000;cursor:pointer;border:none;backdrop-filter:blur(10px);font-weight:300;}
+.back-button:hover{background:#c9a961;transform:scale(1.05);box-shadow:0 5px 20px rgba(201,169,97,0.4);}
+.page h2{font-size:3.5rem;margin-bottom:50px;font-weight:300;letter-spacing:8px;color:#2a2a2a;text-transform:uppercase;}
+.page p{font-size:1.25rem;line-height:2.2;max-width:900px;color:#444;font-weight:300;}
 
-/* Galería Dinámica */
-.dynamic-gallery{position:relative;width:100%;min-height:80vh;display:flex;align-items:center;justify-content:center;perspective:1000px;padding:50px 0;}
-.gallery-carousel{position:relative;width:90%;max-width:1400px;height:600px;margin:0 auto;}
-.gallery-card{position:absolute;width:500px;height:400px;cursor:pointer;transition:all 0.6s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d;box-shadow:0 20px 60px rgba(0,0,0,0.3);border-radius:8px;overflow:hidden;}
-.gallery-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease;}
-.gallery-card:hover img{transform:scale(1.05);}
-.gallery-card-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.95));color:white;padding:25px;transform:translateY(100%);transition:transform 0.4s ease;}
-.gallery-card:hover .gallery-card-overlay{transform:translateY(0);}
-.gallery-card-title{font-size:1.3rem;font-weight:300;letter-spacing:2px;margin-bottom:8px;}
-.gallery-card-info{font-size:0.9rem;opacity:0.8;font-style:italic;}
+/* Galería Dinámica Mejorada */
+.dynamic-gallery{position:relative;width:100%;min-height:85vh;display:flex;align-items:center;justify-content:center;padding:0;margin-top:50px;}
+.gallery-carousel{position:relative;width:100%;max-width:1600px;height:650px;margin:0 auto;display:flex;align-items:center;justify-content:center;}
 
-/* Posiciones del carrusel */
-.gallery-card.pos-center{z-index:10;left:50%;top:50%;transform:translate(-50%,-50%) scale(1.1);opacity:1;}
-.gallery-card.pos-left{z-index:5;left:10%;top:50%;transform:translate(-50%,-50%) scale(0.85) rotateY(15deg);opacity:0.7;}
-.gallery-card.pos-right{z-index:5;left:90%;top:50%;transform:translate(-50%,-50%) scale(0.85) rotateY(-15deg);opacity:0.7;}
-.gallery-card.pos-hidden{z-index:1;opacity:0;pointer-events:none;}
+/* Tarjetas de la galería con 5 posiciones visibles */
+.gallery-card{
+    position:absolute;
+    width:450px;
+    height:550px;
+    cursor:pointer;
+    transition:all 0.6s cubic-bezier(0.4,0,0.2,1);
+    box-shadow:0 15px 50px rgba(0,0,0,0.25);
+    border-radius:8px;
+    overflow:hidden;
+    background:#fff;
+}
 
-/* Controles de navegación */
-.gallery-nav{position:absolute;top:50%;width:100%;display:flex;justify-content:space-between;padding:0 20px;z-index:20;pointer-events:none;transform:translateY(-50%);}
-.gallery-nav button{pointer-events:all;background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.3);color:white;width:60px;height:60px;border-radius:50%;cursor:pointer;font-size:1.5rem;transition:all 0.3s ease;}
-.gallery-nav button:hover{background:rgba(212,175,55,0.8);transform:scale(1.1);}
+.gallery-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform 0.5s ease;
+}
 
-/* Indicadores */
-.gallery-indicators{text-align:center;margin-top:30px;}
-.gallery-indicators span{display:inline-block;width:12px;height:12px;background:rgba(0,0,0,0.3);border-radius:50%;margin:0 8px;cursor:pointer;transition:all 0.3s ease;}
-.gallery-indicators span.active{background:#d4af37;transform:scale(1.3);}
+.gallery-card:hover img{
+    transform:scale(1.08);
+}
 
-/* Modal Museo */
-.museo-modal{display:none;position:fixed;z-index:3000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.96);overflow-y:auto;animation:fadeIn 0.3s ease;}
+/* Overlay mejorado */
+.gallery-card-overlay{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    background:linear-gradient(transparent,rgba(0,0,0,0.92));
+    color:#f5f5f5;
+    padding:30px;
+    transform:translateY(100%);
+    transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.gallery-card:hover .gallery-card-overlay{
+    transform:translateY(0);
+}
+
+.gallery-card-title{
+    font-size:1.5rem;
+    font-weight:400;
+    letter-spacing:2.5px;
+    margin-bottom:10px;
+}
+
+.gallery-card-info{
+    font-size:1rem;
+    opacity:0.85;
+    font-style:italic;
+    letter-spacing:1px;
+    font-weight:300;
+}
+
+/* Posiciones del carrusel - 5 obras visibles */
+.pos-left2{
+    transform:translate(-180%, -50%) scale(0.65);
+    opacity:0.35;
+    z-index:1;
+    filter:brightness(0.8);
+}
+
+.pos-left{
+    transform:translate(-110%, -50%) scale(0.82);
+    opacity:0.65;
+    z-index:2;
+    filter:brightness(0.9);
+}
+
+.pos-center{
+    transform:translate(-50%, -50%) scale(1);
+    opacity:1;
+    z-index:5;
+    box-shadow:0 25px 70px rgba(0,0,0,0.35);
+}
+
+.pos-right{
+    transform:translate(10%, -50%) scale(0.82);
+    opacity:0.65;
+    z-index:2;
+    filter:brightness(0.9);
+}
+
+.pos-right2{
+    transform:translate(80%, -50%) scale(0.65);
+    opacity:0.35;
+    z-index:1;
+    filter:brightness(0.8);
+}
+
+.pos-hidden{
+    opacity:0;
+    z-index:0;
+    pointer-events:none;
+}
+
+/* Controles mejorados */
+.gallery-nav{
+    position:absolute;
+    top:50%;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    padding:0 30px;
+    z-index:20;
+    pointer-events:none;
+    transform:translateY(-50%);
+}
+
+.gallery-nav button{
+    pointer-events:all;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.25);
+    color:#f5f5f5;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:1.8rem;
+    transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+    font-weight:300;
+}
+
+.gallery-nav button:hover{
+    background:rgba(201,169,97,0.9);
+    transform:scale(1.15);
+    box-shadow:0 8px 25px rgba(201,169,97,0.4);
+}
+
+/* Indicadores mejorados */
+.gallery-indicators{
+    text-align:center;
+    margin-top:40px;
+}
+
+.gallery-indicators span{
+    display:inline-block;
+    width:14px;
+    height:14px;
+    background:rgba(42,42,42,0.25);
+    border-radius:50%;
+    margin:0 10px;
+    cursor:pointer;
+    transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.gallery-indicators span.active{
+    background:#c9a961;
+    transform:scale(1.4);
+    box-shadow:0 0 12px rgba(201,169,97,0.6);
+}
+
+/* Modal Museo mejorado */
+.museo-modal{
+    display:none;
+    position:fixed;
+    z-index:3000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.97);
+    overflow-y:auto;
+    animation:fadeIn 0.4s ease;
+}
+
 .museo-modal.active{display:block;}
-.museo-content{background:white;max-width:1400px;margin:50px auto;border-radius:15px;overflow:hidden;position:relative;animation:slideUp 0.4s ease;}
-@keyframes slideUp{from{transform:translateY(50px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-.close-museo{position:absolute;top:25px;right:30px;font-size:40px;cursor:pointer;color:#999;z-index:10;transition:all 0.3s ease;width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.9);border-radius:50%;}
-.close-museo:hover{color:#d4af37;transform:rotate(90deg) scale(1.1);}
 
-/* Layout ficha */
-.museo-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:0;}
-.museo-main-image{position:relative;background:#000;min-height:600px;display:flex;align-items:center;justify-content:center;cursor:zoom-in;}
-.museo-main-image img{width:100%;height:100%;object-fit:contain;max-height:600px;transition:transform 0.3s ease;}
-.museo-main-image.zoomed{cursor:zoom-out;position:fixed;top:0;left:0;width:100%;height:100%;z-index:4000;background:rgba(0,0,0,0.98);}
-.museo-main-image.zoomed img{max-height:90vh;object-fit:contain;}
+.museo-content{
+    background:#fafafa;
+    max-width:1500px;
+    margin:60px auto;
+    border-radius:12px;
+    overflow:hidden;
+    position:relative;
+    animation:slideUp 0.5s cubic-bezier(0.4,0,0.2,1);
+    box-shadow:0 30px 80px rgba(0,0,0,0.5);
+}
 
-.museo-info{padding:50px;background:#fafafa;}
-.museo-title{font-size:2.5rem;font-weight:300;letter-spacing:3px;margin-bottom:15px;color:#333;}
-.museo-subtitle{font-size:1.1rem;color:#666;font-style:italic;margin-bottom:40px;border-bottom:1px solid #ddd;padding-bottom:20px;}
+@keyframes slideUp{
+    from{transform:translateY(60px);opacity:0;}
+    to{transform:translateY(0);opacity:1;}
+}
 
-.museo-section{margin-bottom:35px;}
-.museo-section h3{font-size:1.2rem;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:#d4af37;margin-bottom:15px;}
-.museo-section p{font-size:1rem;line-height:1.8;color:#555;}
-.museo-section ul{list-style:none;padding-left:0;}
-.museo-section li{padding:8px 0;color:#555;border-bottom:1px solid #eee;}
-.museo-section li:last-child{border-bottom:none;}
+.close-museo{
+    position:absolute;
+    top:30px;
+    right:35px;
+    font-size:45px;
+    cursor:pointer;
+    color:#999;
+    z-index:10;
+    transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+    width:55px;
+    height:55px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,0.95);
+    border-radius:50%;
+}
+
+.close-museo:hover{
+    color:#c9a961;
+    transform:rotate(90deg) scale(1.12);
+    background:rgba(201,169,97,0.15);
+}
+
+/* Layout ficha museo */
+.museo-grid{
+    display:grid;
+    grid-template-columns:1.6fr 1fr;
+    gap:0;
+}
+
+.museo-main-image{
+    position:relative;
+    background:#1a1a1a;
+    min-height:700px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:zoom-in;
+}
+
+.museo-main-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    max-height:700px;
+    transition:transform 0.4s ease;
+}
+
+.museo-main-image.zoomed{
+    cursor:zoom-out;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:4000;
+    background:rgba(0,0,0,0.98);
+}
+
+.museo-main-image.zoomed img{
+    max-height:92vh;
+    object-fit:contain;
+}
+
+.museo-info{
+    padding:60px 50px;
+    background:#fafafa;
+}
+
+.museo-title{
+    font-size:2.8rem;
+    font-weight:300;
+    letter-spacing:4px;
+    margin-bottom:18px;
+    color:#2a2a2a;
+}
+
+.museo-subtitle{
+    font-size:1.2rem;
+    color:#666;
+    font-style:italic;
+    margin-bottom:45px;
+    border-bottom:1px solid #ddd;
+    padding-bottom:25px;
+    font-weight:300;
+}
+
+.museo-section{
+    margin-bottom:40px;
+}
+
+.museo-section h3{
+    font-size:1.3rem;
+    font-weight:400;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:#c9a961;
+    margin-bottom:18px;
+}
+
+.museo-section p{
+    font-size:1.05rem;
+    line-height:1.95;
+    color:#555;
+    font-weight:300;
+}
+
+.museo-section ul{
+    list-style:none;
+    padding-left:0;
+}
+
+.museo-section li{
+    padding:10px 0;
+    color:#555;
+    border-bottom:1px solid #e8e8e8;
+    font-size:1.05rem;
+    font-weight:300;
+}
+
+.museo-section li:last-child{
+    border-bottom:none;
+}
 
 /* Galería secundaria */
-.museo-secondary{padding:30px 50px;background:white;border-top:1px solid #eee;}
-.secondary-title{font-size:1.1rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;color:#999;}
-.secondary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
-.secondary-image{width:100%;height:200px;object-fit:cover;border-radius:5px;cursor:pointer;transition:all 0.3s ease;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
-.secondary-image:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,0.2);}
+.museo-secondary{
+    padding:40px 50px;
+    background:#fff;
+    border-top:1px solid #e0e0e0;
+}
 
-/* Contact Form */
-.contact-form{max-width:600px;margin:50px auto;}
-.contact-form input,.contact-form textarea{width:100%;padding:15px;margin-bottom:20px;border:1px solid #ddd;font-size:1rem;font-family:'Georgia', serif;}
-.contact-form button{background:#333;color:white;padding:15px 50px;border:none;cursor:pointer;font-size:1rem;letter-spacing:2px;transition:background 0.3s ease;}
-.contact-form button:hover{background:#d4af37;}
+.secondary-title{
+    font-size:1.2rem;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    margin-bottom:25px;
+    color:#888;
+    font-weight:400;
+}
+
+.secondary-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+.secondary-image{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:6px;
+    cursor:pointer;
+    transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+}
+
+.secondary-image:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+}
+
+/* Contact Form mejorado */
+.contact-form{
+    max-width:650px;
+    margin:60px auto;
+}
+
+.contact-form input,.contact-form textarea{
+    width:100%;
+    padding:18px;
+    margin-bottom:25px;
+    border:1px solid #ddd;
+    font-size:1.05rem;
+    font-family:'Georgia', serif;
+    border-radius:4px;
+    transition:all 0.3s ease;
+    font-weight:300;
+}
+
+.contact-form input:focus,.contact-form textarea:focus{
+    outline:none;
+    border-color:#c9a961;
+    box-shadow:0 0 12px rgba(201,169,97,0.2);
+}
+
+.contact-form button{
+    background:#2a2a2a;
+    color:#f5f5f5;
+    padding:18px 60px;
+    border:none;
+    cursor:pointer;
+    font-size:1.05rem;
+    letter-spacing:2.5px;
+    transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+    border-radius:50px;
+    text-transform:uppercase;
+    font-weight:300;
+}
+
+.contact-form button:hover{
+    background:#c9a961;
+    transform:translateY(-3px);
+    box-shadow:0 8px 25px rgba(201,169,97,0.4);
+}
 
 /* Responsive */
 @media(max-width:1024px){
     .museo-grid{grid-template-columns:1fr;}
-    .museo-main-image{min-height:400px;}
+    .museo-main-image{min-height:500px;}
+    .gallery-card{width:350px;height:450px;}
 }
+
 @media(max-width:768px){
-    .side-menu{right:20px;padding:20px 15px;}
-    .side-menu li{margin:15px 0;}
-    .side-menu a{font-size:0.9rem;padding:8px;}
-    .hero-text h1{font-size:2rem;letter-spacing:4px;}
-    .hero-text p{font-size:1.2rem;}
-    .gallery-card{width:85%;height:350px;}
-    .gallery-carousel{height:400px;}
-    .gallery-nav button{width:45px;height:45px;font-size:1.2rem;}
-    .page{padding:80px 5%;}
-    .page h2{font-size:2rem;}
-    .museo-info{padding:30px 25px;}
-    .museo-title{font-size:1.8rem;}
-    .museo-secondary{padding:20px 25px;}
-    .secondary-grid{grid-template-columns:repeat(2,1fr);gap:15px;}
-    .secondary-image{height:150px;}
-    .back-button{top:20px;left:20px;padding:12px 20px;font-size:0.8rem;}
+    .side-menu{right:25px;padding:25px 18px;}
+    .side-menu li{margin:20px 0;}
+    .side-menu a{font-size:0.95rem;padding:10px;}
+    .hero-text h1{font-size:2.5rem;letter-spacing:6px;}
+    .hero-text p{font-size:1.3rem;}
+    .gallery-card{width:280px;height:380px;}
+    .gallery-carousel{height:450px;}
+    .gallery-nav button{width:50px;height:50px;font-size:1.4rem;}
+    .page{padding:100px 6%;}
+    .page h2{font-size:2.2rem;}
+    .museo-info{padding:40px 30px;}
+    .museo-title{font-size:2rem;}
+    .museo-secondary{padding:30px;}
+    .secondary-grid{grid-template-columns:repeat(2,1fr);gap:18px;}
+    .secondary-image{height:180px;}
+    .back-button{top:25px;left:25px;padding:14px 25px;font-size:0.85rem;}
+    
+    /* Ajustes móvil para carrusel */
+    .pos-left2,.pos-right2{display:none;}
+    .pos-left{transform:translate(-100%, -50%) scale(0.75);}
+    .pos-right{transform:translate(0%, -50%) scale(0.75);}
 }
 </style>
 </head>
@@ -129,25 +468,25 @@ body{font-family:'Georgia', serif;color:#333;overflow-x:hidden;}
 <div id="home" class="hero">
     <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1920" alt="Obra destacada" class="hero-image">
     <div class="hero-text">
-        <h1>Tu Nombre</h1>
-        <p>Artista Visual</p>
+        <h1>Pilar Quintas</h1>
+        <p>Paisajes Atmosféricos</p>
     </div>
 </div>
 
 <!-- Side Menu -->
 <nav class="side-menu">
     <ul>
-        <li><a onclick="showPage('proyecto')">Proyecto</a></li>
+        <li><a onclick="showPage('proyecto')">Obra</a></li>
         <li><a onclick="showPage('statement')">Statement</a></li>
-        <li><a onclick="showPage('about')">About Me</a></li>
-        <li><a onclick="showPage('contact')">Contact</a></li>
+        <li><a onclick="showPage('about')">Biografía</a></li>
+        <li><a onclick="showPage('contact')">Contacto</a></li>
     </ul>
 </nav>
 
 <!-- Página Proyecto con Galería Dinámica -->
 <div id="proyecto" class="page">
     <button class="back-button" onclick="showHome()">← Inicio</button>
-    <h2>Proyecto</h2>
+    <h2>Luz Prestada</h2>
     <div class="dynamic-gallery">
         <div class="gallery-carousel" id="galleryCarousel"></div>
         <div class="gallery-nav">
@@ -156,8 +495,9 @@ body{font-family:'Georgia', serif;color:#333;overflow-x:hidden;}
         </div>
     </div>
     <div class="gallery-indicators" id="galleryIndicators"></div>
-    <p style="text-align:center;margin-top:30px;color:#999;font-size:1rem;">
-        Usa las flechas o clica en las obras para explorar • Haz clic en una obra para ver su ficha completa
+    <p style="text-align:center;margin-top:40px;color:#888;font-size:1.05rem;font-weight:300;">
+        Utiliza las flechas laterales o clica en las obras para explorar<br>
+        Selecciona la obra central para ver detalles completos
     </p>
 </div>
 
@@ -166,41 +506,56 @@ body{font-family:'Georgia', serif;color:#333;overflow-x:hidden;}
     <button class="back-button" onclick="showHome()">← Inicio</button>
     <h2>Statement</h2>
     <p>
-        Mi trabajo explora la intersección entre la memoria y el paisaje emocional. 
-        A través del óleo y la técnica mixta, busco capturar momentos de quietud 
-        que revelan la complejidad de la experiencia humana.
+        Mi práctica artística se sitúa en la intersección entre la percepción atmosférica y la memoria emocional del paisaje. A través del óleo y técnicas mixtas, exploro la disolución de límites entre lo visible y lo evocado, entre la materia pictórica y el espacio contemplativo.
         <br><br>
-        Cada pieza es una meditación sobre el tiempo, el espacio y la transformación. 
-        Me interesa cómo los colores pueden evocar emociones específicas y cómo 
-        la textura puede convertirse en un lenguaje propio.
+        Trabajo con capas sucesivas de veladuras translúcidas que construyen profundidades lumínicas, creando campos cromáticos donde el color actúa como fenómeno atmosférico más que como elemento descriptivo. Cada pieza surge de una investigación sobre cómo la luz modifica nuestra percepción del espacio y del tiempo.
+        <br><br>
+        Me interesa especialmente la cualidad fenomenológica del color: cómo ciertos tonos de azul pueden condensar la melancolía del crepúsculo, o cómo un ocre puede contener simultáneamente la calidez de la tierra y la memoria de su erosión. El paisaje en mi obra no es representación sino resonancia, un espacio para la introspección donde el espectador puede proyectar su propia experiencia sensorial.
+        <br><br>
+        Considero cada cuadro como una meditación sobre la impermanencia y la transformación. La obra invita a una mirada lenta, contemplativa, que se opone al consumo visual acelerado contemporáneo.
+        <br><br>
+        ¿Como se fija en la materia pictórica aquello que, por definición, es inasible y efímero?
     </p>
 </div>
 
 <!-- About Me -->
 <div id="about" class="page">
     <button class="back-button" onclick="showHome()">← Inicio</button>
-    <h2>About Me</h2>
+    <h2>Biografía</h2>
     <p>
-        Nacido/a en [Ciudad], [Año]. Estudié Bellas Artes en [Universidad].<br><br>
-        Mi trabajo ha sido expuesto en [galerías/museos]. Actualmente vivo 
-        y trabajo en [Ciudad], explorando nuevas formas de expresión visual.<br><br>
-        <strong>Exposiciones:</strong><br>
-        • 2024 - Galería X<br>
-        • 2023 - Museo Y<br>
-        • 2022 - Espacio Z
+        <strong>Pilar Quintas</strong> (Gelsenkirchen, 1977) es una artista plástica especializada en paisaje atmosférico no figurativo.        
+        Desarrolla su práctica entre la pintura y la cerámica, explorando el diálogo entre materia, color y memoria.
+        <br><br>
+        Ingeniera de formación y con una larga trayectoria en investigación científica, inicia su camino en las artes 
+        plásticas en la <strong>Escuela Municipal de Artes y Oficios de Vigo (EMAO)</strong>, donde estudia Pintura con <strong>Darío Basso</strong> y 
+        actualmente se especializa en <strong>Cerámica</strong> tambien en la EMAO, completando su aprendizaje en el torno con el maestro Fran Robiño y 
+        en el taller de Emilia Guimeráns.
+        <br><br>
+        Su trabajo se centra en el proceso, la observación y la transformación de los materiales,
+        buscando un lenguaje visual propio que una sensibilidad artística y rigor analítico.
+        <br><br>
+        Ha participado en exposiciones colectivas en la EMAO y en la Galería Sandra (Vigo). 
+        Actualmente continúa desarrollando su práctica en Galicia, investigando las correspondencias entre paisaje, materia y experiencia sensorial.
+        <br><br>
+        
+       
     </p>
 </div>
 
 <!-- Contact -->
 <div id="contact" class="page">
     <button class="back-button" onclick="showHome()">← Inicio</button>
-    <h2>Contact</h2>
+    <h2>Contacto</h2>
     <div class="contact-form">
+        <p style="text-align:center;margin-bottom:40px;color:#666;">
+            Para consultas profesionales, adquisiciones o propuestas expositivas
+        </p>
         <form action="https://formspree.io/f/TU_ID_AQUI" method="POST">
-            <input type="text" name="nombre" placeholder="Tu nombre" required>
-            <input type="email" name="email" placeholder="Tu email" required>
-            <textarea name="mensaje" rows="6" placeholder="Tu mensaje" required></textarea>
-            <button type="submit">Enviar</button>
+            <input type="text" name="nombre" placeholder="Nombre completo" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="text" name="asunto" placeholder="Asunto">
+            <textarea name="mensaje" rows="7" placeholder="Mensaje" required></textarea>
+            <button type="submit">Enviar mensaje</button>
         </form>
     </div>
 </div>
@@ -217,55 +572,458 @@ body{font-family:'Georgia', serif;color:#333;overflow-x:hidden;}
                 <h2 class="museo-title" id="museoTitle"></h2>
                 <p class="museo-subtitle" id="museoSubtitle"></p>
                 <div class="museo-section">
-                    <h3>Detalles Técnicos</h3>
+                    <h3>Ficha Técnica</h3>
                     <ul id="museoTecnicos"></ul>
                 </div>
                 <div class="museo-section">
-                    <h3>Explicación Técnica</h3>
+                    <h3>Nota Técnica</h3>
                     <p id="museoExplicacion"></p>
                 </div>
                 <div class="museo-section">
-                    <h3>Detalles de la Obra</h3>
+                    <h3>Sobre la Obra</h3>
                     <p id="museoDetalles"></p>
                 </div>
             </div>
         </div>
         <div class="museo-secondary">
-            <h4 class="secondary-title">Vistas Adicionales</h4>
+            <h4 class="secondary-title">Detalles y Vistas</h4>
             <div class="secondary-grid" id="secondaryImages"></div>
         </div>
     </div>
 </div>
 
 <script>
-// ====== Base de datos de obras (8 obras) ======
+// Base de datos de obras con descripciones profesionales
 const obras = [
-  // Aquí puedes mantener todas las obras que tenías en tu código original
+    {
+        titulo: "Verano efímero",
+        subtitulo: "Luz prestada",
+        año: "2025",
+        imagen: "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1200",
+        secundarias: [
+            "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1549887534-1541e9326642?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=600&h=600&fit=crop"
+        ],
+        tecnicos: { 
+            tecnica: "Técnica mixta: óleo, óleo en barra y acrílico con carga",
+            dimensiones: "50 × 40 cm", 
+            año: "2025", 
+            soporte: "Cartón entelado de lino de grano grueso",
+            precio: "Consultar"
+        },
+        explicacion: `El paisaje se despliega en un horizonte amplio donde un campo dorado ocupa el primer plano.
+                    La materia pictórica, aplicada de forma densa y gestual, sugiere la textura de la tierra bajo la
+                    incidencia de la luz.
+                    En el horizonte, un árbol aislado se funde con la bruma y la transición hacia el cielo
+                    desaturado introduce una atmósfera etérea.
+                    La obra explora la dispersión lumínica y su capacidad para suavizar contornos y alterar la percepción
+                    cromática`,
+        detalles: ""
+    },
+    {
+        titulo: "Horizonte velado",
+        subtitulo: "Luz prestada",
+        año: "2025",
+        imagen: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=1200",
+        secundarias: [
+            "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1549887534-1541e9326642?w=600&h=600&fit=crop"
+        ],
+        tecnicos: { 
+            tecnica: "Veladuras de óleo", 
+            dimensiones: "50 × 40 cm", 
+            año: "2024", 
+            soporte: "Lino de grano fino sobre bastidor de madera",
+            precio: "Consultar"
+        },
+        explicacion: `Estructurada en franjas horizontales, esta pintura sintetiza el paisaje en
+                    transiciones cromáticas.
+                    La base oscura contrasta con los tonos cálidos intermedios y un cielo azul tenue.
+                    La composición prescinde de elementos figurativos para centrarse en la experiencia lumínica.
+                    El horizonte, indefinido y cambiante, sugiere un instante de tránsito perceptivo.
+                    La obra se convierte en un es tudio sobre la luz como materia autónoma, capaz de generar
+                    atmósfera sin necesidad de narración visual.`,
+        detalles: ""
+    },
+    {
+        titulo: "Crepusculo natural amanecer urbano",
+        subtitulo: "Luz Prestada",
+        año: "2025",
+        imagen: "https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=1200",
+        secundarias: [
+            "https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600&h=600&fit=crop"
+        ],
+        tecnicos: { 
+            tecnica: "Veladuras de óleo", 
+            dimensiones: "50 × 40 cm", 
+            año: "2025", 
+            soporte: "Lienzo de lino fino montado sobre bastidor de madera",
+            precio: "Consultar"
+        },
+        explicacion: `El cielo crepuscular, en gamas de azul y naranja, domina la composición mediante pinceladas
+                horizontales que evocan un tránsito lumínico efímero.
+                En la penumbra inferior, pequeños destellos blancos sugieren luces artificiales,
+                construyendo una visión sintética y esquemática del paisaje urbano nocturno.
+                La obra contrapone la luz natural del ocaso con la luz artificial de la ciudad, amplía la
+                investigación hacia la coexistencia de lo natural y lo tecnológico como fuentes de luz.`,
+        detalles: ""
+    },
+    {
+        titulo: "Promesa de un día nuevo",
+        subtitulo: "Luz prestada",
+        año: "2024",
+        imagen: "https://images.unsplash.com/photo-1549887534-1541e9326642?w=1200",
+        secundarias: [
+            "https://images.unsplash.com/photo-1549887534-1541e9326642?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600&h=600&fit=crop"
+        ],
+        tecnicos: { 
+            tecnica: "Veladuras de óleo", 
+            dimensiones: "50 × 40 cm", 
+            año: "2024", 
+            soporte: "Lienzo de lino fino montado sobre bastidor de madera",
+            precio: "Consultar"
+        },
+        explicacion: `La obra se es tructura en dos registros : una base terrosa y gestual sobre la que se eleva un
+                cielo en degradación cromática del amarillo al azul.
+                El contraste entre la luminosidad superior y la solidez inferior produce un efecto
+                de ascensión, como si la luz emergiera desde la tierra.
+                La simplicidad formal refuerza la intensidad perceptiva, invitando a contemplar la luz como origen del
+                paisaje.`,
+        detalles: ""
+    },
+    {
+        titulo: "Vuelta a casa",
+        subtitulo: "Luz prestada",
+        año: "2024",
+        imagen: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=1200",
+        secundarias: [
+            "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1549887534-1541e9326642?w=600&h=600&fit=crop"
+        ],
+        tecnicos: { 
+            tecnica: "Técnica mixta con acrílico y óleo", 
+            dimensiones: "  ×  cm", 
+            año: "2024", 
+            soporte: "Lino de grano medio sobre bastidor de madera",
+            precio: "Consultar"
+        },
+        explicacion: " ",
+        detalles: " "
+    },
+    {
+        titulo: "Marina serena",
+        subtitulo: "Luz prestada",
+        año: "2024",
+        imagen: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1200",
+        secundarias: [
+            "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=600&h=600&fit=crop"
+        ],
+        tecnicos: { 
+            tecnica: "Óleo", 
+            dimensiones: "  ×  cm", 
+            año: "2024", 
+            soporte: "Papel Figueres",
+            precio: "Consultar"
+        },
+        explicacion: " ",
+        detalles: " "
+    },
+    {
+        titulo: " ",
+        subtitulo: "Luz prestada",
+        año: "2024",
+        imagen: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200",
+        secundarias: [
+            "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=600&h=600&fit=crop"
+        ],
+        tecnicos: { 
+            tecnica: " ", 
+            dimensiones: " ×  cm", 
+            año: "", 
+            soporte: "",
+            precio: "Consultar"
+        },
+        explicacion: "",
+        detalles: " "
+    },
+    {
+        titulo: "",
+        subtitulo: "",
+        año: "2024",
+        imagen: "https://images.unsplash.com/photo-1579541814924-49fef17c5be5?w=1200",
+        secundarias: [
+            "https://images.unsplash.com/photo-1579541814924-49fef17c5be5?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1549887534-1541e9326642?w=600&h=600&fit=crop",
+            "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600&h=600&fit=crop"
+        ],
+        tecnicos: { 
+            tecnica: "", 
+            dimensiones: " ×  cm", 
+            año: "2024", 
+            soporte: "",
+            precio: "Consultar"
+        },
+        explicacion: "",
+        detalles: ""
+    }
 ];
 
-// ====== Variables ======
 let currentIndex = 0;
 let galleryInitialized = false;
+let isAnimating = false;
 
-// ====== Funciones ======
+// Mostrar página
 function showPage(pageId){
     document.getElementById('home').style.display = 'none';
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const sideMenu = document.querySelector('.side-menu');
+    
+    const allPages = document.querySelectorAll('.page');
+    allPages.forEach(p => {
+        p.classList.remove('active');
+        p.style.display = 'none';
+    });
+    
     const targetPage = document.getElementById(pageId);
     if(targetPage){
         targetPage.classList.add('active');
+        targetPage.style.display = 'block';
         window.scrollTo({top:0, behavior:'smooth'});
+        
+        // Ocultar menú en página proyecto, mostrar en otras
+        if(pageId === 'proyecto'){
+            sideMenu.classList.add('hide');
+        } else {
+            sideMenu.classList.remove('hide');
+        }
+        
         if(pageId === 'proyecto' && !galleryInitialized){
-            setTimeout(() => initGallery(), 100);
+            setTimeout(initGallery, 100);
         }
     }
 }
+
+// Volver a home
 function showHome(){
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const allPages = document.querySelectorAll('.page');
+    allPages.forEach(p => {
+        p.classList.remove('active');
+        p.style.display = 'none';
+    });
+    
+    const sideMenu = document.querySelector('.side-menu');
+    sideMenu.classList.remove('hide');
+    
     document.getElementById('home').style.display = 'block';
     window.scrollTo({top:0, behavior:'smooth'});
-    currentIndex = 0;
 }
 
-// ====== Galería ======
+// Inicialización de la galería
 function initGallery(){
+    if(galleryInitialized) return;
+
+    const carousel = document.getElementById('galleryCarousel');
+    const indicators = document.getElementById('galleryIndicators');
+
+    carousel.innerHTML = '';
+    indicators.innerHTML = '';
+
+    obras.forEach((obra, i) => {
+        const card = document.createElement('div');
+        card.className = 'gallery-card';
+        card.innerHTML = `
+            <img src="${obra.imagen}" alt="${obra.titulo}">
+            <div class="gallery-card-overlay">
+                <div class="gallery-card-title">${obra.titulo}</div>
+                <div class="gallery-card-info">${obra.subtitulo} • ${obra.año}</div>
+            </div>
+        `;
+        card.onclick = () => {
+            const offset = (i - currentIndex + obras.length) % obras.length;
+            if(offset === 0){
+                openMuseo(i);
+            } else {
+                slideToIndex(i);
+            }
+        };
+        carousel.appendChild(card);
+
+        const indicator = document.createElement('span');
+        indicator.onclick = () => slideToIndex(i);
+        indicators.appendChild(indicator);
+    });
+
+    galleryInitialized = true;
+    updateGallery();
+}
+
+// Actualización de posiciones (5 obras visibles)
+function updateGallery(){
+    const cards = document.querySelectorAll('.gallery-card');
+    const total = obras.length;
+
+    cards.forEach((card, i) => {
+        card.className = 'gallery-card';
+        const offset = (i - currentIndex + total) % total;
+
+        // Distribución: left2, left, center, right, right2
+        if(offset === (total - 2) % total){
+            card.classList.add('pos-left2');
+        } else if(offset === (total - 1) % total){
+            card.classList.add('pos-left');
+        } else if(offset === 0){
+            card.classList.add('pos-center');
+        } else if(offset === 1){
+            card.classList.add('pos-right');
+        } else if(offset === 2){
+            card.classList.add('pos-right2');
+        } else {
+            card.classList.add('pos-hidden');
+        }
+    });
+
+    const indicators = document.querySelectorAll('.gallery-indicators span');
+    indicators.forEach((ind, i) => {
+        ind.classList.toggle('active', i === currentIndex);
+    });
+}
+
+// Desplazamiento animado paso a paso
+function slideToIndex(target){
+    if(isAnimating) return;
+    
+    const total = obras.length;
+    let diff = (target - currentIndex + total) % total;
+    
+    if(diff > total/2){
+        diff -= total;
+    }
+    
+    if(diff === 0) return;
+
+    isAnimating = true;
+    const step = diff > 0 ? 1 : -1;
+    let moved = 0;
+    
+    const interval = setInterval(() => {
+        currentIndex = (currentIndex + step + total) % total;
+        updateGallery();
+        moved++;
+        
+        if(moved >= Math.abs(diff)){
+            clearInterval(interval);
+            isAnimating = false;
+        }
+    }, 150);
+}
+
+// Navegación con botones
+function navigateGallery(direction){
+    if(isAnimating) return;
+    
+    const total = obras.length;
+    const newIndex = direction === 'next' 
+        ? (currentIndex + 1) % total 
+        : (currentIndex - 1 + total) % total;
+    
+    slideToIndex(newIndex);
+}
+
+// Modal de museo
+function openMuseo(index){
+    const obra = obras[index];
+    const modal = document.getElementById('museoModal');
+    
+    document.getElementById('museoTitle').textContent = obra.titulo;
+    document.getElementById('museoSubtitle').textContent = `${obra.subtitulo} • ${obra.año}`;
+    document.getElementById('museoMainImg').src = obra.imagen;
+    
+    const tecnicosHTML = `
+        <li><strong>Técnica:</strong> ${obra.tecnicos.tecnica}</li>
+        <li><strong>Dimensiones:</strong> ${obra.tecnicos.dimensiones}</li>
+        <li><strong>Año:</strong> ${obra.tecnicos.año}</li>
+        <li><strong>Soporte:</strong> ${obra.tecnicos.soporte}</li>
+        <li><strong>Precio:</strong> ${obra.tecnicos.precio}</li>
+    `;
+    document.getElementById('museoTecnicos').innerHTML = tecnicosHTML;
+    document.getElementById('museoExplicacion').textContent = obra.explicacion;
+    document.getElementById('museoDetalles').textContent = obra.detalles;
+    
+    const secondaryHTML = obra.secundarias.map(img => 
+        `<img src="${img}" alt="Vista adicional" class="secondary-image" onclick="changeMainImage('${img}')">`
+    ).join('');
+    document.getElementById('secondaryImages').innerHTML = secondaryHTML;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMuseo(){
+    document.getElementById('museoModal').classList.remove('active');
+    document.getElementById('mainImageContainer').classList.remove('zoomed');
+    document.body.style.overflow = 'auto';
+}
+
+function changeMainImage(src){
+    document.getElementById('museoMainImg').src = src;
+    document.getElementById('mainImageContainer').classList.remove('zoomed');
+}
+
+function toggleZoom(event){
+    event.stopPropagation();
+    document.getElementById('mainImageContainer').classList.toggle('zoomed');
+}
+
+function handleModalClick(event){
+    if(event.target.id === 'museoModal') closeMuseo();
+}
+
+// Controles de teclado
+document.addEventListener('keydown', e => {
+    const proyectoActive = document.getElementById('proyecto').classList.contains('active');
+    const modalActive = document.getElementById('museoModal').classList.contains('active');
+    
+    if(proyectoActive && !modalActive){
+        if(e.key === 'ArrowRight') navigateGallery('next');
+        if(e.key === 'ArrowLeft') navigateGallery('prev');
+    }
+    if(modalActive && e.key === 'Escape') closeMuseo();
+});
+
+// Controles táctiles (swipe)
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe(){
+    const proyectoActive = document.getElementById('proyecto').classList.contains('active');
+    if(!proyectoActive || isAnimating) return;
+    
+    const swipeThreshold = 50;
+    if(touchEndX < touchStartX - swipeThreshold){
+        navigateGallery('next');
+    } else if(touchEndX > touchStartX + swipeThreshold){
+        navigateGallery('prev');
+    }
+}
+</script>
+</body>
+</html>
